@@ -3,14 +3,17 @@
 #include <SFML/Graphics.hpp>
 class Luigi :public Personnage
 {
-private:int speed = 5;
-	   sf::RectangleShape rectangle;
+protected:int speed = 5;
+		 sf::Sprite MySprite;
+		 sf::Texture texture;
 
 public:Luigi();
+	  sf::Sprite GetMySprite();
 	  void up();
 	  void left();
 	  void right();
-	  sf::RectangleShape& LuigiGetRect();
+	  void down();
+	 
 	  sf::FloatRect  LuigiglobalPosition();
 	  sf::Vector2f LuigisetPosition(const sf::Vector2f& newPosition);
 

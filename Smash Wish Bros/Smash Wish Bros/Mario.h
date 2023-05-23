@@ -5,16 +5,16 @@ class Mario:public Personnage
 {protected:
 	int speed = 5;
 
-//sf::RectangleShape rectangle;
+	sf::Sprite MySprite;
 sf::Texture texture;
-sf::Sprite MySprite;
+
 
 public:Mario();
-	 sf::Sprite *GetMySprite();
+	 sf::Sprite GetMySprite();
 	  void up();
 	  void left();
 	  void right();
-	 
+	  void down();
 	  sf::FloatRect  marioglobalPosition();
 	  sf::Vector2f mariosetPosition(const sf::Vector2f& newPosition);
 

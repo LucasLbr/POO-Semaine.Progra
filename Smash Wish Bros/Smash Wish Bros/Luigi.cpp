@@ -1,32 +1,46 @@
 #include "Luigi.h"
+#include <iostream>
 Luigi::Luigi() :Personnage()
 {
-	rectangle.setSize(sf::Vector2f(50, 50));
-	rectangle.setFillColor(sf::Color::Green);
-	rectangle.setPosition(1340, 650);
+	if (!texture.loadFromFile("luigi.png")) {
+		std::cout << "Erreur lors du chargement de l'image perso.png" << std::endl;
+
+	}
+	MySprite.setTexture(texture);
+	MySprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
+	MySprite.setPosition(sf::Vector2f(1340, 650));
+
+
+	
+	
+
+}
+sf::Sprite Luigi::GetMySprite() {
+	return MySprite;
 }
 void Luigi::up() {
-	rectangle.move(0, -speed);
+	MySprite.move(0, -speed);
 }
 void Luigi::left() {
-	rectangle.move(-speed, 0);
+	MySprite.move(-speed, 0);
 }
 void Luigi::right() {
-	rectangle.move(speed, 0);
+	MySprite.move(speed, 0);
 }
-sf::RectangleShape& Luigi::LuigiGetRect() {
-	return rectangle;
+void Luigi::down() {
+	MySprite.move(0, speed);
 }
+
 sf::FloatRect Luigi::LuigiglobalPosition()
 {
-	return rectangle.getGlobalBounds();
+	return MySprite.getGlobalBounds();
 }
 
 sf::Vector2f Luigi::LuigiPosition() {
-	return rectangle.getPosition();
+	return MySprite.getPosition();
 }
 sf::Vector2f Luigi::LuigisetPosition(const sf::Vector2f& newPosition) {
-	sf::Vector2f previousPosition = rectangle.getPosition();
-	rectangle.setPosition(newPosition);
+	sf::Vector2f previousPosition = MySprite.getPosition();
+	MySprite.setPosition(newPosition);
 	return previousPosition;
 }

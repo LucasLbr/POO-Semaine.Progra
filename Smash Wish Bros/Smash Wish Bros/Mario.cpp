@@ -12,6 +12,9 @@ Mario::Mario() :Personnage()
 	MySprite.setPosition(sf::Vector2f(560, 650));
 
 }
+sf::Sprite Mario::GetMySprite() {
+	return MySprite;
+}
 void Mario::up() {
 	MySprite.move(0, -speed);
 }
@@ -20,6 +23,9 @@ void Mario::left() {
 }
 void Mario::right() {
 	MySprite.move(speed, 0);
+}
+void Mario::down() {
+	MySprite.move(0, speed);
 }
 
 sf::FloatRect Mario:: marioglobalPosition()
@@ -34,7 +40,4 @@ sf::Vector2f Mario::mariosetPosition(const sf::Vector2f& newPosition) {
 	sf::Vector2f previousPosition = MySprite.getPosition();
 	MySprite.setPosition(newPosition);
 	return previousPosition;
-}
-sf::Sprite* Mario::GetMySprite() {
-return &MySprite;
 }

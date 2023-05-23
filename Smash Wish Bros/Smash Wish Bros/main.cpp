@@ -3,12 +3,12 @@
 #include "Input.h"
 #include "Mario.h"
 #include "Luigi.h"
-void CheckBtn();
+void CheckBtn(Mario* x, Luigi* y);
 
 Input input;
 
-Mario mario;
-Luigi luigi;
+
+
 //sf::RectangleShape rectangle(sf::Vector2f(50, 50));
 //sf::RectangleShape rectangle2(sf::Vector2f(50, 50));
 sf::RectangleShape platform(sf::Vector2f(1000, 50));
@@ -16,8 +16,8 @@ sf::RectangleShape platform1(sf::Vector2f(200, 25));
 sf::RectangleShape platform2(sf::Vector2f(200, 25));
 
 //bool CheckCollision(const Personnage& rect1, const Personnage& rect2);
-bool CheckCollisionWithPlatformmario(const sf::RectangleShape& platform);
-bool CheckCollisionWithPlatformluigi(const sf::RectangleShape& platform);
+//bool CheckCollisionWithPlatformmario(const sf::RectangleShape& platform);
+//bool CheckCollisionWithPlatformluigi(const sf::RectangleShape& platform);
 int main()
 {
     int screenw = 1920;
@@ -25,6 +25,9 @@ int main()
     sf::RenderWindow window(sf::VideoMode(screenw, screenh), "Smash Wish Bros");
     window.setFramerateLimit(60);
     //perso
+    Mario *mario=new Mario();
+    Luigi *luigi=new Luigi();
+    
    // rectangle.setFillColor(sf::Color::Red);
    // rectangle.setPosition(560, 650);
     //rectangle2.setFillColor(sf::Color::Green);
@@ -49,7 +52,7 @@ int main()
             input.InputHandler(event, window);
         }
 
-        CheckBtn();
+        CheckBtn(mario,luigi);
 
        // if (CheckCollision(mario, rectangle2)) {
             // Handle collision between rectangle and rectangle2
@@ -63,25 +66,26 @@ int main()
            // rectangle2.setFillColor(sf::Color::Green);
        // }
 
-        if (CheckCollisionWithPlatformmario(platform) ||
+       /* if (CheckCollisionWithPlatformmario(platform) ||
             CheckCollisionWithPlatformmario( platform1) ||
             CheckCollisionWithPlatformmario(platform2)) {
             // Handle collision between rectangle and platforms
             // For example, stop the movement of rectangle
-            mario.up();
-        }
+            mario->up();
+        }*/
 
-        if (CheckCollisionWithPlatformluigi( platform) ||
+       /* if (CheckCollisionWithPlatformluigi( platform) ||
             CheckCollisionWithPlatformluigi( platform1) ||
             CheckCollisionWithPlatformluigi( platform2)) {
             // Handle collision between rectangle2 and platforms
             // For example, stop the movement of rectangle2
-            luigi.up();
-        }
+            luigi->up();
+        }*/
 
         window.clear();
         //window.draw(rectangle);
-       window.draw(* (mario.GetMySprite()));
+       window.draw(mario->GetMySprite());
+       window.draw(luigi->GetMySprite());
        // window.draw(rectangle2);
        // window.draw(luigi.LuigiGetRect());
         window.draw(platform);
@@ -93,25 +97,25 @@ int main()
     return 0;
 }
 
-void CheckBtn()
+void CheckBtn(Mario *x,Luigi *y)
 {
-    Vector2f currentPosition = mario.marioPosition();
-    Vector2f currentPosition2 = luigi.LuigiPosition();
+    Vector2f currentPosition = x->marioPosition();
+    Vector2f currentPosition2 = y->LuigiPosition();
     if (input.GetButton().up == true)
     {
-        mario.up();
+        x->up();
     }
     if (input.GetButton().down == true)
     {
-        
+        x->down();
     }
     if (input.GetButton().left == true)
     {
-        mario.left();
+        x->left();
     }
     if (input.GetButton().right == true)
     {
-        mario.right();
+        x->right();
     }
     if (input.GetButton().key1 == true)
     {
@@ -125,27 +129,27 @@ void CheckBtn()
     {
 
     }
-    if (mario.marioglobalPosition().intersects(platform.getGlobalBounds()))
+    if (x->marioglobalPosition().intersects(platform.getGlobalBounds()))
     {
         // Rétablissez la position précédente du personnage
-        mario.mariosetPosition(currentPosition);
+        x->mariosetPosition(currentPosition);
     }
     // -----------------j2-------------
     if (input.GetButton().z == true)
     {
-        luigi.up();
+        y->up();
     }
     if (input.GetButton().s == true)
     {
-      
+        y->down();
     }
     if (input.GetButton().q == true)
     {
-        luigi.left();
+        y->left();
     }
     if (input.GetButton().d == true)
     {
-        luigi.right();
+        y->right();
     }
     if (input.GetButton().g == true)
     {
@@ -159,25 +163,26 @@ void CheckBtn()
     {
 
     }
-    if (luigi.LuigiglobalPosition().intersects(platform.getGlobalBounds()))
+    if (y->LuigiglobalPosition().intersects(platform.getGlobalBounds()))
     {
         // Rétablissez la position précédente du personnage
-        luigi.LuigisetPosition(currentPosition2);
+        y->LuigisetPosition(currentPosition2);
     }
 }
 
 /*bool CheckCollision(const Personnage& rect1, const Personnage& rect2)
 {
     return rect1.getGlobalBounds().intersects(rect2.getGlobalBounds());
-}*/
+}
 
 bool CheckCollisionWithPlatformmario(const sf::RectangleShape& platform)
 {
-    
-   return mario.marioglobalPosition().intersects(platform.getGlobalBounds());
+
+    return mario.marioglobalPosition().intersects(platform.getGlobalBounds());
 }
 bool CheckCollisionWithPlatformluigi(const sf::RectangleShape& platform)
 {
 
     return  luigi.LuigiglobalPosition().intersects(platform.getGlobalBounds());
 }
+*/

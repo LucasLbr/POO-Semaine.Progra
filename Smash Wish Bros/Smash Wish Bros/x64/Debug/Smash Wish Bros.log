@@ -1,7 +1,6 @@
-﻿  main.cpp
-  Mario.cpp
-D:\Documents\POO\Smash Wish Bros\Smash Wish Bros\Mario.cpp(16,19): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
-D:\Documents\POO\Smash Wish Bros\Smash Wish Bros\Mario.cpp(19,16): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
-D:\Documents\POO\Smash Wish Bros\Smash Wish Bros\Mario.cpp(22,16): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
-  Génération de code en cours...
+﻿  Luigi.cpp
+D:\Documents\POO\Smash Wish Bros\Smash Wish Bros\Luigi.cpp(22,19): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\POO\Smash Wish Bros\Smash Wish Bros\Luigi.cpp(25,16): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\POO\Smash Wish Bros\Smash Wish Bros\Luigi.cpp(28,16): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
+D:\Documents\POO\Smash Wish Bros\Smash Wish Bros\Luigi.cpp(31,19): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
   Smash Wish Bros.vcxproj -> D:\Documents\POO\Smash Wish Bros\x64\Debug\Smash Wish Bros.exe
