@@ -3,7 +3,7 @@
 Personnage::Personnage()
 {
 
-	vie = 0;
+	vie = 1;
 	position_defensive = false;
 	
 	vitessey = 0;
@@ -11,6 +11,9 @@ Personnage::Personnage()
 	vitessegravit = 0;
 	UpIsPressed = true;
 	bagarre = true;
+	lastDirection = Right;
+	ultime = 0;
+	mort = 0;
 }
 
 void Personnage::pesanteur()
@@ -19,41 +22,35 @@ void Personnage::pesanteur()
 }
 
 
-/*void Personnage::bouge(sf::Time DI)
-{
-	sprite.move(vitessex * DI.asSeconds(), vitessey * DI.asSeconds());
-}*/
 
 void Personnage::changement_vitesse(bool U, bool D, bool R, bool L, sf::Time dureeIteration)
 {
 	//std::cout << vitessex << std::endl;
 	if (D)
 	{
-		if (vitessey < 400)
-		{
-			vitessey += 800 * dureeIteration.asSeconds();
-		}
+		
+		vitessex = 0;
 	}
 	if (U&&UpIsPressed)
 	{
-		if (vitessey > -1400)
+		if (vitessey > -700)
 		{
-			vitessey -= 700 ;
+			vitessey -= 400 ;
 		}
 		UpIsPressed = false;
 	}
 	if (R)
 	{
-		if (vitessex < 400)
+		if (vitessex <200)
 		{
-			vitessex += 800 * dureeIteration.asSeconds();
+			vitessex += 400 * dureeIteration.asSeconds();
 		}
 	}
 	if (L)
 	{
-		if (vitessex > -400)
+		if (vitessex > -200)
 		{
-			vitessex -= 800 * dureeIteration.asSeconds();
+			vitessex -= 400 * dureeIteration.asSeconds();
 		}
 	}
 }
@@ -62,7 +59,9 @@ bool Personnage::contact() {
 }
 void  Personnage::recevoir_degats(int degats)
 {
-	if (position_defensive == true) vie = vie;
+	if (position_defensive == true) {
+		
+	}
 	else vie += degats;
 }
 void  Personnage::frapper(Personnage* cible)
@@ -75,13 +74,28 @@ void  Personnage::attaque_spécial(Personnage* cible)
 	cible->recevoir_degats(40);
 	position_defensive = false;
 }
-void  Personnage::bouclier()
+void  Personnage::bouclier(bool x)
 {
-	position_defensive = true;
+	if(x==true)position_defensive = true;
 
 }
 
 int  Personnage::get_vie()
 {
 	return vie;
+}
+
+void Personnage::reculD() {
+
+	
+
+}
+void Personnage::reculG() {
+	
+}
+void Personnage::dead() {
+	vie = 1;
+	if(ultime==0)ultime++;
+	
+	
 }
