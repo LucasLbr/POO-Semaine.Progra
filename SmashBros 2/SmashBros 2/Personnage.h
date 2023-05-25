@@ -1,7 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "Projectile.h"
+
+#include <vector>
 class Personnage
 {
 protected:
@@ -25,11 +26,11 @@ protected:
 	
 	
 public:
-	void lancer(std::vector<Projectile*>* X);
+	virtual sf::Vector2f lancer(bool droite);
 	Personnage();
 	void pesanteur();
 
-	//virtual void bouge(sf::Time DI);
+	
 	bool contact();
 	void bouge(sf::Time DI);
 	virtual void changement_vitesse(bool U, bool D, bool R, bool L, sf::Time dureeIteration);
@@ -41,6 +42,7 @@ public:
 	virtual void dead();
 	virtual void posture(bool U, bool D, bool R, bool L, bool un, bool deux,bool trois);
 	int get_vie();
+	bool get_droite();
 	virtual void reculD();
 	virtual void reculG();
 	sf::Sprite GetMySprite();

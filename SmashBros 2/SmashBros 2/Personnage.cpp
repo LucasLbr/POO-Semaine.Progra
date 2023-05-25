@@ -1,4 +1,5 @@
 #include "Personnage.h"
+#include <vector>
 
 Personnage::Personnage()
 {
@@ -19,14 +20,21 @@ Personnage::Personnage()
 /*void Personnage::lancer(Projectile* projectile) {
 	
 }*/
-void Personnage::lancer(std::vector<Projectile*>* X){
+sf::Vector2f Personnage::lancer(bool droite)
+{
 	
+	sf::Vector2f position = MySprite.getPosition();
+	if (droite)
 	{
-		//int vitesse;
-		//sio mario D, vitesse = 50
-			X->push_back(new Projectile(MySprite.getPosition()));
-		//X->push_back(new Projectile(sf::Vector2f(750, 500)));
+		position.x += 50;
 	}
+	else 
+	{
+		position.x -= 30;
+	}
+	 // Déplacer la position de 40 pixels vers le haut
+	return position;
+	
 }
 void Personnage::pesanteur()
 {
@@ -95,7 +103,7 @@ void Personnage::bouge(sf::Time DI)
 sf::Sprite Personnage::GetMySprite() {
 	return MySprite;
 }
-void  Personnage::frapper(Personnage* cible)
+void Personnage::frapper(Personnage* cible)
 {
 	cible->recevoir_degats(5);
 	position_defensive = false;
@@ -119,7 +127,14 @@ int  Personnage::get_vie()
 {
 	return vie;
 }
-
+bool Personnage::get_droite()
+{
+	if (lastDirection == Right)
+	{
+		return true;
+	}
+	return false;
+}
 void Personnage::reculD() {
 
 	

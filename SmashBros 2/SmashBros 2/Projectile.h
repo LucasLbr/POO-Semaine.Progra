@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Personnage.h"
 class Projectile
 {
 protected: sf::Sprite MySprite;
@@ -8,10 +9,12 @@ protected: sf::Sprite MySprite;
          int vitessey;
     public:
       
-        Projectile( sf::Vector2f pos);
+        Projectile( sf::Vector2f pos,bool droite);
         sf::Sprite GetMySprite();
-
-       
+        void bouge(sf::Time DI);
+        void changement_vitesseG();
+        sf::FloatRect ProjectileglobalPosition();
+        void frapper(Personnage* cible);
    
 };
 

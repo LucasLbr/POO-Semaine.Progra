@@ -236,6 +236,19 @@ void Mario::dead() {
 
 
 }
+//sf::Vector2f Mario::lancer() {
+//	if (lastDirection == Right) {
+//		sf::Vector2f position = MySprite.getPosition();
+//		position.x += 30; 
+//		return position;
+//	}
+//	if (lastDirection == Left) {
+//		sf::Vector2f position = MySprite.getPosition();
+//		position.x -= 30; 
+//		return position;
+//	}
+//
+//}
 void Mario::frapperpied(Personnage* cible) {
 	cible->recevoir_degats(10);
 	cible->reculU();

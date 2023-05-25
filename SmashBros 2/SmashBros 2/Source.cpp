@@ -13,6 +13,7 @@ bool CheckCollisionWithPlatformluigi(Luigi* x, Platform platform);
 bool CheckCollisionMarioLuigi(Mario* x, Luigi* y);*/
 bool CheckCollisionentrePersonnage(Personnage* x, Personnage* y);
 bool CheckCollisionWithPlatforPersonnage(Personnage* x, Platform platform);
+bool CheckCollisionentrePersonnageBomb(Personnage* x, Projectile* y);
 
 int main()
 {
@@ -207,10 +208,13 @@ int main()
 			}
 
 			if (move3 == true) {
-				tab[0]->lancer(&projectile);
+				//tab[0]->lancer(&projectile);
+
+				projectile.push_back(new Projectile(tab[0]->lancer(tab[0]->get_droite()),tab[0]->get_droite()));
+
 			}
 			if (moveJ == true) {
-				tab[1]->lancer(&projectile);
+				projectile.push_back(new Projectile(tab[1]->lancer(tab[1]->get_droite()), tab[1]->get_droite()));
 			}
 
 
@@ -224,7 +228,9 @@ int main()
 			for (int i = 0; i < tab.size(); i++) {
 				tab[i]->bouge(dureeIteration);
 			}
-
+			for (int i = 0; i < projectile.size(); i++) {
+				projectile[i]->bouge(dureeIteration);
+			}
 			for (int i = 0; i < tab.size(); i++) {
 				if (CheckCollisionWithPlatforPersonnage(tab[i], Principale)) {
 					tab[i]->collision();
@@ -265,7 +271,14 @@ int main()
 			}
 			if (CheckCollisionWithPlatformluigi(luigi, dead)) {
 				luigi->dead();*/
-
+			for (int i=0; i < projectile.size(); i++) {
+				if (CheckCollisionentrePersonnageBomb(tab[0], projectile[i]) == true) {
+					projectile[i]->frapper(tab[0]);
+				}
+				if (CheckCollisionentrePersonnageBomb(tab[1], projectile[i]) == true) {
+					projectile[i]->frapper(tab[1]);
+				}
+			}
 			if (CheckCollisionentrePersonnage(tab[0], tab[1]) == true) {
 				if (move1 == true)tab[0]->frapper(tab[1]);
 				if (moveG == true)tab[1]->frapper(tab[0]);
@@ -346,4 +359,7 @@ Personnage* SelectionJoueur() {
 
 
 	return j;
+}
+bool CheckCollisionentrePersonnageBomb(Personnage* x, Projectile* y) {
+	return x->PersonnageglobalPosition().intersects(y->ProjectileglobalPosition());
 }

@@ -28,5 +28,7 @@ public:Mario();
 	  void dead();
 	  void frapperpied(Personnage* cible);
 	  void reculU();
+	  sf::Vector2f lancer();
+	 
 };
 
