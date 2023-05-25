@@ -9,42 +9,50 @@ Luigi::Luigi() :Personnage()
 	}
 	MySprite.setTexture(texture);
 	MySprite.setTextureRect(sf::IntRect(0, 0, 44, 64));
-	MySprite.setPosition(sf::Vector2f(1100, 500));
+	//MySprite.setPosition(sf::Vector2f(1100, 500));
 	lastDirection = Right;
 	vitessey = 0;
 	vitessex = 0;
 }
 
-sf::Sprite Luigi::GetMySprite() {
-	return MySprite;
-}
-void Luigi::bouge(sf::Time DI)
-{
-	MySprite.move(vitessex * DI.asSeconds(), vitessey * DI.asSeconds());
 
-}
-sf::FloatRect Luigi::luigiglobalPosition()
-{
-	return MySprite.getGlobalBounds();
-}
-void Luigi::collision() {
-	vitessey = 0;
-	MySprite.move(0, -2);
-	UpIsPressed = true;
-}
+
 void Luigi::collimonter() {
 	vitessey = 0;
 	MySprite.move(0, -2);
 	UpIsPressed = true;
 
 }
-void Luigi::posture(bool U, bool D, bool R, bool L, bool un, bool deux) {
+void Luigi::posture(bool U, bool D, bool R, bool L, bool un, bool deux,bool trois) {
 
 	// Obtenir le temps écoulé depuis le début du programme en secondes
 	float elapsedTime = animationClock.getElapsedTime().asSeconds();
 
 	// Animation du personnage en fonction du temps
+	if (trois) {
+		int x = static_cast<int>(elapsedTime * 16) % 4;
+		if (x == 0) MySprite.setTextureRect(sf::IntRect(0, 249, 44, 40));
+		if (x == 1) MySprite.setTextureRect(sf::IntRect(44, 249, 44, 40));
+		if (x == 2) MySprite.setTextureRect(sf::IntRect(88, 249, 46, 40));
+		if (x == 3) MySprite.setTextureRect(sf::IntRect(134, 249, 46, 40));
 
+		if (lastDirection == Right) {
+			int x = static_cast<int>(elapsedTime * 16) % 4;
+			if (x == 0) MySprite.setTextureRect(sf::IntRect(0, 249, 44, 40));
+			if (x == 1) MySprite.setTextureRect(sf::IntRect(44, 249, 44, 40));
+			if (x == 2) MySprite.setTextureRect(sf::IntRect(88, 249, 46, 40));
+			if (x == 3) MySprite.setTextureRect(sf::IntRect(134, 249, 46, 40));
+
+		}
+		if (lastDirection == Left) {
+			int x = static_cast<int>(elapsedTime * 16) % 4;
+			if (x == 0) MySprite.setTextureRect(sf::IntRect(380, 246, 44, 40));
+			if (x == 1) MySprite.setTextureRect(sf::IntRect(425, 246, 44, 40));
+			if (x == 2) MySprite.setTextureRect(sf::IntRect(470, 246, 46, 40));
+			if (x == 3) MySprite.setTextureRect(sf::IntRect(515, 246, 46, 40));
+
+		}
+	}
 	if (un)
 	{
 		int x = static_cast<int>(elapsedTime * 16) % 4;
@@ -78,7 +86,7 @@ void Luigi::posture(bool U, bool D, bool R, bool L, bool un, bool deux) {
 		if (x == 0)MySprite.setTextureRect(sf::IntRect(12, 140, 31, 45));
 		if (x == 1)MySprite.setTextureRect(sf::IntRect(44, 140, 29, 45));
 		if (x == 2)MySprite.setTextureRect(sf::IntRect(77, 140, 31, 45));
-		if (x == 3)MySprite.setTextureRect(sf::IntRect(110, 140, 31, 45));
+		if (x == 3)MySprite.setTextureRect(sf::IntRect(110, 140, 29, 45));
 		if (x == 4)MySprite.setTextureRect(sf::IntRect(139, 140, 31, 45));
 		if (x == 5)MySprite.setTextureRect(sf::IntRect(171, 140, 31, 45));
 		if (x == 6)MySprite.setTextureRect(sf::IntRect(205, 140, 31, 45));
@@ -135,42 +143,38 @@ void Luigi::posture(bool U, bool D, bool R, bool L, bool un, bool deux) {
 	}
 	if (deux)
 	{
-		int x = static_cast<int>(elapsedTime * 16) % 8;
+		int x = static_cast<int>(elapsedTime * 16) % 4;
 		if (x == 0) MySprite.setTextureRect(sf::IntRect(12, 199, 32, 45));
 		if (x == 1) MySprite.setTextureRect(sf::IntRect(44, 199, 35, 45));
 		if (x == 2) MySprite.setTextureRect(sf::IntRect(78, 199, 32, 45));
 		if (x == 3) MySprite.setTextureRect(sf::IntRect(110, 199, 29, 45));
-		if (x == 4) MySprite.setTextureRect(sf::IntRect(139, 199, 36, 45));
-		if (x == 5) MySprite.setTextureRect(sf::IntRect(172, 199, 33, 45));
-		if (x == 6) MySprite.setTextureRect(sf::IntRect(206, 199, 38, 45));
-		if (x == 7) MySprite.setTextureRect(sf::IntRect(235, 199, 38, 45));
 		if (lastDirection == Right) {
 
-			int x = static_cast<int>(elapsedTime * 16) % 8;
+			int x = static_cast<int>(elapsedTime * 16) % 4;
 		if (x == 0) MySprite.setTextureRect(sf::IntRect(12, 199, 32, 45));
 		if (x == 1) MySprite.setTextureRect(sf::IntRect(44, 199, 35, 45));
 		if (x == 2) MySprite.setTextureRect(sf::IntRect(78, 199, 32, 45));
 		if (x == 3) MySprite.setTextureRect(sf::IntRect(110, 199, 29, 45));
-		if (x == 4) MySprite.setTextureRect(sf::IntRect(139, 199, 36, 45));
-		if (x == 5) MySprite.setTextureRect(sf::IntRect(172, 199, 33, 45));
-		if (x == 6) MySprite.setTextureRect(sf::IntRect(206, 199, 38, 45));
-		if (x == 7) MySprite.setTextureRect(sf::IntRect(235, 199, 38, 45));
+	
 		}
-		/*if (lastDirection == Left) {
-			int x = static_cast<int>(elapsedTime * 16) % 8;
-			if (x == 0) MySprite.setTextureRect(sf::IntRect(12, 199, 32, 45));
-			if (x == 1) MySprite.setTextureRect(sf::IntRect(44, 199, 35, 45));
-			if (x == 2) MySprite.setTextureRect(sf::IntRect(78, 199, 32, 45));
-			if (x == 3) MySprite.setTextureRect(sf::IntRect(110, 199, 29, 45));
-			if (x == 4) MySprite.setTextureRect(sf::IntRect(139, 199, 36, 45));
-			if (x == 5) MySprite.setTextureRect(sf::IntRect(172, 199, 33, 45));
-			if (x == 6) MySprite.setTextureRect(sf::IntRect(206, 199, 38, 45));
-			if (x == 7) MySprite.setTextureRect(sf::IntRect(235, 199, 38, 45));
+		if (lastDirection == Left) {
+		int x = static_cast<int>(elapsedTime * 16) % 4;
+		if (x == 0) MySprite.setTextureRect(sf::IntRect(291, 201, 32, 45));
+		if (x == 1) MySprite.setTextureRect(sf::IntRect(324, 201, 30, 45));
+		if (x == 2) MySprite.setTextureRect(sf::IntRect(355, 201, 32, 45));
+		if (x == 3) MySprite.setTextureRect(sf::IntRect(389, 201, 29, 45));
 
-		}*/
+		}
 	}
 }
+void Luigi::frapperpied(Personnage* cible) {
+	cible->recevoir_degats(10);
+	cible->reculU();
 
+}
+void Luigi::reculU() {
+	vitessey = -1 * vie;
+}
 void Luigi::frapper(Personnage* cible) {
 	cible->recevoir_degats(10);
 	if (lastDirection == Right)cible->reculD();
@@ -185,7 +189,7 @@ void Luigi::reculG() {
 	vitessex = 1 * vie;
 }
 void Luigi::dead() {
-	if (mort <= 1) {
+	if (mort <2) {
 		MySprite.setPosition(957, 470);
 		vie = 1;
 		if (ultime == 0)ultime++;

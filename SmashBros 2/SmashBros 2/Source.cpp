@@ -4,9 +4,16 @@
 #include "Mario.h"
 #include "Luigi.h"
 #include "Platform.h"
-bool CheckCollisionWithPlatformmario(Mario* x, Platform platform);
+#include "MarioJaune.h"
+#include "Projectile.h"
+Personnage* SelectionJoueur();
+
+/*bool CheckCollisionWithPlatformmario(Mario* x, Platform platform);
 bool CheckCollisionWithPlatformluigi(Luigi* x, Platform platform);
-bool CheckCollisionMarioLuigi(Mario* x, Luigi* y);
+bool CheckCollisionMarioLuigi(Mario* x, Luigi* y);*/
+bool CheckCollisionentrePersonnage(Personnage* x, Personnage* y);
+bool CheckCollisionWithPlatforPersonnage(Personnage* x, Platform platform);
+
 int main()
 {
 	int screenw = 1920;
@@ -14,7 +21,6 @@ int main()
 	sf::View view;
 	sf::RenderWindow window(sf::VideoMode(screenw, screenh), "Smash Wish Bros");
 	window.setFramerateLimit(60);
-	
 	bool moveU = false;
 	bool moveD = false;
 	bool moveL = false;
@@ -27,14 +33,23 @@ int main()
 	bool move2 = false;
 	bool moveG = false;
 	bool moveH = false;
-	 bool isUpPressed = false;
-	
+	bool move3 = false;
+	bool moveJ = false;
+	bool isUpPressed = false;
+	bool menu = true;
+
+	std::vector<Projectile*>projectile;
 	
 	sf::Clock clock;
 	sf::Time dureeIteration = sf::Time::Zero;
-	Mario* mario = new Mario();
-	Luigi* luigi = new Luigi();
+	std::vector<Personnage*> tab;
+	
+
+	//Mario* mario = new Mario();
+	//Luigi* luigi = new Luigi();
 	// arene
+	Personnage* Joueur1;
+	Personnage* Joueur2;
 	
 	sf::Font font;
 	sf::Text txt;
@@ -76,6 +91,9 @@ int main()
 				case sf::Keyboard::G:
 					moveG = true;
 					break;
+				case sf::Keyboard::J:
+					moveJ= true;
+					break;
 				case sf::Keyboard::H:
 					moveH = true;
 					break;
@@ -86,7 +104,9 @@ int main()
 
 					moveU = true;
 					break;
-
+				case sf::Keyboard::Numpad3:
+					move3 = true;
+					break;
 				case sf::Keyboard::Numpad1:
 					move1 = true;
 					break;
@@ -118,6 +138,9 @@ int main()
 			case sf::Event::EventType::KeyReleased:
 				switch (event.key.code)
 				{
+				case sf::Keyboard::Numpad3:
+					move3 = false;
+					break;
 				case sf::Keyboard::Right:
 					moveR = false;
 					break;
@@ -135,6 +158,9 @@ int main()
 					break;
 				case sf::Keyboard::Down:
 					moveD = false;
+					break;
+				case sf::Keyboard::J:
+					moveJ = false;
 					break;
 				case sf::Keyboard::S:
 					moveS = false;
@@ -166,94 +192,158 @@ int main()
 
 			}
 		}
-
-		mario->pesanteur();
-		luigi->pesanteur();
-
-		mario->changement_vitesse(moveU, moveD, moveR, moveL, dureeIteration);
-		luigi->changement_vitesse(moveZ, moveS, moveD2, moveQ, dureeIteration);
-		mario->bouclier(moveD);
-		luigi->bouclier(moveS);
-
-		if (CheckCollisionWithPlatformmario(mario, Principale)) {
-
-			mario->collision();
+		if (menu == true) {
+			Joueur1 = SelectionJoueur();
+			tab.push_back(Joueur1);
+			Joueur2 = SelectionJoueur();
+			tab.push_back(Joueur2);
+			tab[0]->positionDebut(750, 500);
+			tab[1]->positionDebut(1100, 500);
 		}
-		if (CheckCollisionWithPlatformluigi(luigi, Principale)) {
+		if (menu == false) {
+	
+			for (int i = 0; i < tab.size(); i++) {
+				tab[i]->pesanteur();
+			}
 
-			luigi->collision();
-		}
-		if (CheckCollisionWithPlatformmario(mario, platform1) ||
-			CheckCollisionWithPlatformmario(mario, platform2)) {
+			if (move3 == true) {
+				tab[0]->lancer(&projectile);
+			}
+			if (moveJ == true) {
+				tab[1]->lancer(&projectile);
+			}
 
-			mario->collimonter();
-		}
-		if (CheckCollisionWithPlatformluigi(luigi, platform1) ||
-			CheckCollisionWithPlatformluigi(luigi, platform2)) {
 
-			luigi->collimonter();
-		}
-		if (CheckCollisionWithPlatformmario(mario, dead))
-		{
-			 
-			mario->dead();
+			tab[0]->changement_vitesse(moveU, moveD, moveR, moveL, dureeIteration);
+			tab[1]->changement_vitesse(moveZ, moveS, moveD2, moveQ, dureeIteration);
+
+			tab[0]->bouclier(moveD);
+			tab[1]->bouclier(moveS);
+			tab[0]->posture(moveU, moveD, moveR, moveL, move1, move2,move3);
+			tab[1]->posture(moveZ, moveS, moveD2, moveQ, moveG, moveH,moveJ);
+			for (int i = 0; i < tab.size(); i++) {
+				tab[i]->bouge(dureeIteration);
+			}
+
+			for (int i = 0; i < tab.size(); i++) {
+				if (CheckCollisionWithPlatforPersonnage(tab[i], Principale)) {
+					tab[i]->collision();
+				}
+			}
+			for (int i = 0; i < tab.size(); i++) {
+				if (CheckCollisionWithPlatforPersonnage(tab[i], platform1)) {
+					tab[i]->collision();
+				}
+			}
+			for (int i = 0; i < tab.size(); i++) {
+				if (CheckCollisionWithPlatforPersonnage(tab[i], platform2)) {
+					tab[i]->collision();
+				}
+			}
+			for (int i = 0; i < tab.size(); i++) {
+				if (CheckCollisionWithPlatforPersonnage(tab[i], dead)) {
+					tab[i]->dead();
+				}
+			}
+			/*if (CheckCollisionWithPlatformmario(mario, Principale)|| CheckCollisionWithPlatformmario(mario, platform1) ||
+				CheckCollisionWithPlatformmario(mario, platform2)) {
+
+				mario->collision();
+			}
+			if (CheckCollisionWithPlatformluigi(luigi, Principale)|| CheckCollisionWithPlatformluigi(luigi, platform1) ||
+				CheckCollisionWithPlatformluigi(luigi, platform2)) {
+
+				luigi->collision();
+			}
+
+			if (CheckCollisionWithPlatformmario(mario, dead))
+			{
+
+				mario->dead();
+
+
+			}
+			if (CheckCollisionWithPlatformluigi(luigi, dead)) {
+				luigi->dead();*/
+
+			if (CheckCollisionentrePersonnage(tab[0], tab[1]) == true) {
+				if (move1 == true)tab[0]->frapper(tab[1]);
+				if (moveG == true)tab[1]->frapper(tab[0]);
+				if (move2 == true)tab[0]->frapperpied(tab[1]);
+				if (moveH == true)tab[1]->frapperpied(tab[0]);
+
+			}
+			int scoremario = tab[0]->get_vie();
+			int scoreluigi = tab[1]->get_vie();
+			font.loadFromFile("\Poppins Medium 500.ttf");
+			txt.setPosition(840, 700);
+			txt.setCharacterSize(40);
+			txt.setFont(font);
+			txt.setString(std::to_string(scoremario) + "% | " + std::to_string(scoreluigi) + "%");
+
+
+
+			view.reset(sf::FloatRect(0, 0, screenw, screenh));
+			sf::Vector2f position(screenw / 2, screenh / 2);
+			view.zoom(0.5f);
+			window.setView(view);
+
+
 			
+			window.clear();
+		
+			window.draw(backgroundSprite);
+			window.draw(txt);
+			window.draw(tab[0]->GetMySprite());
+			window.draw(tab[1]->GetMySprite());
+		
+			window.draw(dead.GetMySprite());
+			window.draw(platform1.GetMySprite());
+			window.draw(platform2.GetMySprite());
+			window.draw(Principale.GetMySprite());
+			for (int i = 0; i < projectile.size(); i++) {
+				window.draw(projectile[i]->GetMySprite());
+
+			}
+			
+			window.display();
 			
 		}
-		if (CheckCollisionWithPlatformluigi(luigi, dead)) {
-			luigi->dead();
-		}
-		if (CheckCollisionMarioLuigi(mario, luigi) == true ) {
-			if (move1==true )mario->frapper(luigi);
-			if (moveG == true)luigi->frapper(mario);
-		}
-		int scoremario = mario->get_vie();
-		int scoreluigi = luigi->get_vie();
-		font.loadFromFile("\Poppins Medium 500.ttf");
-		txt.setPosition(840, 700);
-		txt.setCharacterSize(40);
-		txt.setFont(font);
-		txt.setString(std::to_string(scoremario) + "% | " + std::to_string(scoreluigi) + "%");
-
-		mario->posture(moveU, moveD, moveR, moveL,move1,move2);
-		luigi->posture(moveZ, moveS, moveD2, moveQ, moveG, moveH);
-		mario->bouge(dureeIteration);
-		luigi->bouge(dureeIteration);
-		std::cout << mario->get_vie() << std::endl;
-		std::cout << luigi->get_vie() << std::endl;
-		view.reset(sf::FloatRect(0, 0, screenw, screenh));
-		sf::Vector2f position(screenw / 2, screenh / 2);
-		view.zoom(0.5f);
-		window.setView(view);
-		
-
-
-		window.clear();
-		
-		window.draw(backgroundSprite);
-		window.draw(txt);
-		window.draw(mario->GetMySprite());
-		window.draw(luigi->GetMySprite());
-		window.draw(dead.GetMySprite());
-		window.draw(platform1.GetMySprite());
-		window.draw(platform2.GetMySprite());
-		window.draw(Principale.GetMySprite());
-		window.display();
-
-	}delete mario;
-	delete luigi;
-	return 0;
+		menu = false;
+	}
+	for (int i = 0; i < tab.size(); i++) {
+		delete tab[i];
+	}
+	
 }
-bool CheckCollisionWithPlatformmario(Mario* x, Platform platform)
+bool CheckCollisionWithPlatforPersonnage(Personnage* x, Platform platform)
 {
 
-	return x->marioglobalPosition().intersects(platform.platformglobalPosition());
+	return x->PersonnageglobalPosition().intersects(platform.platformglobalPosition());
 }
-bool CheckCollisionWithPlatformluigi(Luigi* x, Platform platform)
+/*bool CheckCollisionWithPlatformluigi(Luigi* x, Platform platform)
 {
 
 	return x->luigiglobalPosition().intersects(platform.platformglobalPosition());
+}*/
+bool CheckCollisionentrePersonnage(Personnage* x, Personnage* y) {
+	return x->PersonnageglobalPosition().intersects(y->PersonnageglobalPosition());
 }
-bool CheckCollisionMarioLuigi(Mario* x, Luigi* y) {
-	return x->marioglobalPosition().intersects(y->luigiglobalPosition());
+Personnage* SelectionJoueur() {
+	Personnage* j;
+	int c;
+	std::cout << "1 mario 2 luigi" << std::endl;
+	std::cin >> c;
+	switch (c) {
+	case (1):j = new Mario();
+		break;
+	case (2):j = new Luigi();
+		break;
+	case (3):j = new MarioJaune();
+		break;
+	default:j = new Mario();
+	}
+
+
+	return j;
 }

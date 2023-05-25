@@ -9,42 +9,70 @@ Mario::Mario() :Personnage()
 	}
 	MySprite.setTexture(texture);
 	MySprite.setTextureRect(sf::IntRect(18, 22, 24, 40));
-	MySprite.setPosition(sf::Vector2f(750, 500));
+	//MySprite.setPosition(sf::Vector2f(750, 500));
 	//lastDirection = Right;
 	vitessey = 0;
 	vitessex = 0;
 }
 
-sf::Sprite Mario::GetMySprite() {
-	return MySprite;
-}
-void Mario::bouge(sf::Time DI)
+//sf::Sprite Mario::GetMySprite() {
+	//return MySprite;
+//}
+/*void Mario::bouge(sf::Time DI)
 {
 	MySprite.move(vitessex * DI.asSeconds(), vitessey * DI.asSeconds());
 	
-}
-sf::FloatRect Mario::marioglobalPosition()
+}*/
+/*sf::FloatRect Mario::marioglobalPosition()
 {
 	return MySprite.getGlobalBounds();
-}
-void Mario::collision() {
+}*/
+/*void Mario::collision() {
 	vitessey=0;
 	MySprite.move(0, -2);
 	UpIsPressed = true;
-}
+}*/
 void Mario::collimonter() {
 	vitessey = 0;
 	MySprite.move(0, -2);
 	UpIsPressed = true;
 	
 }
-void Mario::posture(bool U, bool D, bool R, bool L,bool un,bool deux) {
+void Mario::posture(bool U, bool D, bool R, bool L,bool un,bool deux,bool trois) {
 
 	// Obtenir le temps écoulé depuis le début du programme en secondes
 	float elapsedTime = animationClock.getElapsedTime().asSeconds();
 
 	// Animation du personnage en fonction du temps
+	if (trois) {
+		int x = static_cast<int>(elapsedTime * 16) % 6;
+		if (x == 0) MySprite.setTextureRect(sf::IntRect(0, 190, 38, 40));
+		if (x == 1) MySprite.setTextureRect(sf::IntRect(43, 190, 50, 40));
+		if (x == 2) MySprite.setTextureRect(sf::IntRect(93, 190, 48, 40));
+		if (x == 3) MySprite.setTextureRect(sf::IntRect(141, 190, 38, 40));
+		if (x == 4) MySprite.setTextureRect(sf::IntRect(182, 190, 38, 40));
+		if (x == 5) MySprite.setTextureRect(sf::IntRect(222, 190, 38, 40));
+		if (lastDirection == Right) {
+			int x = static_cast<int>(elapsedTime * 16) % 6;
+			if (x == 0) MySprite.setTextureRect(sf::IntRect(0, 190, 38, 40));
+			if (x == 1) MySprite.setTextureRect(sf::IntRect(43, 190, 50, 40));
+			if (x == 2) MySprite.setTextureRect(sf::IntRect(93, 190, 48, 40));
+			if (x == 3) MySprite.setTextureRect(sf::IntRect(141, 190, 38, 40));
+			if (x == 4) MySprite.setTextureRect(sf::IntRect(182, 190, 38, 40));
+			if (x == 5) MySprite.setTextureRect(sf::IntRect(222, 190, 38, 40));
 
+		}
+		if (lastDirection == Left) {
+			int x = static_cast<int>(elapsedTime * 16) % 6;
+			if (x == 0) MySprite.setTextureRect(sf::IntRect(538, 187, 38, 40));
+			if (x == 1) MySprite.setTextureRect(sf::IntRect(483, 187, 50, 40));
+			if (x == 2) MySprite.setTextureRect(sf::IntRect(436, 187, 46, 40));
+			if (x == 3) MySprite.setTextureRect(sf::IntRect(400, 187, 36, 40));
+			if (x == 4) MySprite.setTextureRect(sf::IntRect(358, 187, 38, 40));
+			if (x == 5) MySprite.setTextureRect(sf::IntRect(322, 187, 35, 40));
+
+		}
+	}
 	if (un)
 	{
 		int x = static_cast<int>(elapsedTime * 16) % 6;
@@ -191,18 +219,28 @@ void Mario::reculD() {
 void Mario::reculG() {
 	vitessex = -1 * vie;
 }
+
 void Mario::frapper(Personnage* cible) {
 	cible->recevoir_degats(10);
 	if (lastDirection == Right)cible->reculD();
 	if (lastDirection == Left)cible->reculG();
 }
 void Mario::dead() {
-	if (mort <= 1) {
+	if (mort < 2) {
 		MySprite.setPosition(957, 470);
 		vie = 1;
 		if (ultime == 0)ultime++;
+		std::cout << "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG " << mort << std::endl;
 		mort += 1;
 	}
 
 
+}
+void Mario::frapperpied(Personnage* cible) {
+	cible->recevoir_degats(10);
+	cible->reculU();
+	
+}
+void Mario::reculU() {
+	vitessey = -1 * vie;
 }

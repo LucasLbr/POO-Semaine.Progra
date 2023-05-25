@@ -1,27 +1,23 @@
-﻿  Luigi.cpp
-D:\Documents\POO\SmashBros 2\SmashBros 2\Luigi.cpp(181,15): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
-D:\Documents\POO\SmashBros 2\SmashBros 2\Luigi.cpp(185,15): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
-  Source.cpp
-D:\Documents\POO\SmashBros 2\SmashBros 2\Source.cpp(212,21): warning C4129: 'P' : caractère de séquence d'échappement non reconnu
-D:\Documents\POO\SmashBros 2\SmashBros 2\Source.cpp(224,43): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+﻿  Source.cpp
+D:\Documents\POO\SmashBros 2\SmashBros 2\Source.cpp(278,22): warning C4129: 'P' : caractère de séquence d'échappement non reconnu
+D:\Documents\POO\SmashBros 2\SmashBros 2\Source.cpp(286,44): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
           with
           [
               T=float
           ]
-D:\Documents\POO\SmashBros 2\SmashBros 2\Source.cpp(224,34): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+D:\Documents\POO\SmashBros 2\SmashBros 2\Source.cpp(286,35): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
           with
           [
               T=float
           ]
-D:\Documents\POO\SmashBros 2\SmashBros 2\Source.cpp(225,46): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+D:\Documents\POO\SmashBros 2\SmashBros 2\Source.cpp(287,47): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
           with
           [
               T=float
           ]
-D:\Documents\POO\SmashBros 2\SmashBros 2\Source.cpp(225,33): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+D:\Documents\POO\SmashBros 2\SmashBros 2\Source.cpp(287,34): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
           with
           [
               T=float
           ]
-  Génération de code en cours...
   SmashBros 2.vcxproj -> D:\Documents\POO\SmashBros 2\x64\Debug\SmashBros 2.exe

@@ -135,15 +135,19 @@
   <ItemGroup>
     <ClCompile Include="Luigi.cpp" />
     <ClCompile Include="Mario.cpp" />
+    <ClCompile Include="MarioJaune.cpp" />
     <ClCompile Include="Personnage.cpp" />
     <ClCompile Include="Platform.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Luigi.h" />
     <ClInclude Include="Mario.h" />
+    <ClInclude Include="MarioJaune.h" />
     <ClInclude Include="Personnage.h" />
     <ClInclude Include="Platform.h" />
+    <ClInclude Include="Projectile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

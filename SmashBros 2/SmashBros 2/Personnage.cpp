@@ -5,7 +5,7 @@ Personnage::Personnage()
 
 	vie = 1;
 	position_defensive = false;
-	
+
 	vitessey = 0;
 	vitessex = 0;
 	vitessegravit = 0;
@@ -16,12 +16,26 @@ Personnage::Personnage()
 	mort = 0;
 }
 
+/*void Personnage::lancer(Projectile* projectile) {
+	
+}*/
+void Personnage::lancer(std::vector<Projectile*>* X){
+	
+	{
+		//int vitesse;
+		//sio mario D, vitesse = 50
+			X->push_back(new Projectile(MySprite.getPosition()));
+		//X->push_back(new Projectile(sf::Vector2f(750, 500)));
+	}
+}
 void Personnage::pesanteur()
 {
 	vitessey += 10;
 }
-
-
+void Personnage::posture(bool U, bool D, bool R, bool L, bool un, bool deux,bool trois){}
+void Personnage::positionDebut(int x, int y) {
+	return MySprite.setPosition(sf::Vector2f(x, y));
+}
 
 void Personnage::changement_vitesse(bool U, bool D, bool R, bool L, sf::Time dureeIteration)
 {
@@ -54,6 +68,10 @@ void Personnage::changement_vitesse(bool U, bool D, bool R, bool L, sf::Time dur
 		}
 	}
 }
+sf::FloatRect Personnage::PersonnageglobalPosition()
+{
+	return MySprite.getGlobalBounds();
+}
 bool Personnage::contact() {
 	return bagarre;
 }
@@ -64,10 +82,26 @@ void  Personnage::recevoir_degats(int degats)
 	}
 	else vie += degats;
 }
+void Personnage::collision() {
+	vitessey = 0;
+	MySprite.move(0, -2);
+	UpIsPressed = true;
+}
+void Personnage::bouge(sf::Time DI)
+{
+	MySprite.move(vitessex * DI.asSeconds(), vitessey * DI.asSeconds());
+
+}
+sf::Sprite Personnage::GetMySprite() {
+	return MySprite;
+}
 void  Personnage::frapper(Personnage* cible)
 {
 	cible->recevoir_degats(5);
 	position_defensive = false;
+}
+void Personnage::frapperpied(Personnage* cible){
+
 }
 void  Personnage::attaque_spécial(Personnage* cible)
 {
@@ -79,6 +113,7 @@ void  Personnage::bouclier(bool x)
 	if(x==true)position_defensive = true;
 
 }
+void Personnage:: reculU() {}
 
 int  Personnage::get_vie()
 {
